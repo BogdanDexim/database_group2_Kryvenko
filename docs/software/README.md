@@ -319,7 +319,7 @@
 - app.py:
 ```python
 from app_init import app
-import users_controller
+import request_controller
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000, host="127.0.0.1")
@@ -332,17 +332,16 @@ from flask import Flask
 app = Flask(__name__)
 ```
 
-- user_module.py:
+- request_module.py:
 ```python
 import mysql.connector
 
-
-class Users:
+class Request:
     def __init__(self):
         try:
             self.host = 'localhost'
             self.user = 'root'
-            self.password = 'root123'
+            self.password = '0706042004'
             self.db = 'mydb'
 
             self.connection = mysql.connector.connect(host=self.host,
@@ -351,130 +350,125 @@ class Users:
                                                       database=self.db)
 
             self.cursor = self.connection.cursor(dictionary=True)
-            print("Successful connection to database")
+            print("Successful connection to request")
         except mysql.connector.Error as err:
-            print("Failed to connect to database:", err)
+            print("Failed to connect to request:", err)
 
-    def get_all_users(self):
+    def get_all_request(self):
         try:
-            self.cursor.execute("select * from user")
-            users = self.cursor.fetchall()
+            self.cursor.execute("select * from request")
+            request = self.cursor.fetchall()
 
             if self.cursor.rowcount == 0:
-                return {"message": "No users", "error": "Not Found", "status_code": 404}
+                return {"message": "No request", "error": "Not Found", "status_code": 404}
 
-            return users
+            return request
         except mysql.connector.Error as err:
-            return {'message': 'Failed to get all users', 'error': str(err), 'status_code': 500}
+            return {'message': 'Failed to get all request', 'error': str(err), 'status_code': 500}
 
-    def get_user_by_id(self, user_id):
+    def get_request_by_id(self, request_id):
         try:
-            user_id = int(user_id)
-            self.cursor.execute("select * from user where `User.id` = %s", (user_id,))
-            user = self.cursor.fetchone()
+            request_id = int(request_id)
+            self.cursor.execute("select * from request where `request.id` = %s", (request_id,))
+            request = self.cursor.fetchone()
 
             if self.cursor.rowcount == 0:
-                return {"message": f"No user with id {user_id}", "error": "Not Found", "status_code": 404}
+                return {"message": f"No request with id {request_id}", "error": "Not Found", "status_code": 404}
 
-            return user
+            return request
         except mysql.connector.Error as err:
-            return {'message': 'Failed to get user', 'error': str(err), 'status_code': 500}
+            return {'message': 'Failed to get request', 'error': str(err), 'status_code': 500}
         except ValueError:
-            return {"message": "Invalid user id", "error": "Bad Request", "status_code": 400}
+            return {"message": "Invalid request id", "error": "Bad Request", "status_code": 400}
 
-    def add_user(self, info):
+    def add_request(self, url_params):
         try:
             self.cursor.execute('start transaction')
-            self.cursor.execute(f"insert into user (`User.id`, `User.username`, `User.email`, `User.password`, "
-                                f"`User.firstname`, `User.lastname`, `Usercol`, `Role_Role.id`) "
-                                f"values {tuple([i for i in info.values()])}")
+            self.cursor.execute(f"insert into request (`Request.id`, `Request.type`, `Request.message`,"
+                                f"`User_User.id`, `Access_Access.id`)"
+                                f"values {tuple([i for i in url_params.values()])}")
             self.connection.commit()
 
             if self.cursor.rowcount > 0:
-                return {"message": "User added to database", "status_code": 200}
+                return {"message": "request added to requeste", "status_code": 200}
             else:
-                return {"message": "User was not added to database", "error": "Not Acceptable", "status_code": 406}
+                return {"message": "request was not added to request", "error": "Not Acceptable", "status_code": 406}
         except mysql.connector.Error as err:
             self.connection.rollback()
-            return {'message': 'Failed to add user', 'error': str(err), 'status_code': 500}
+            return {'message': 'Failed to add request', 'error': str(err), 'status_code': 500}
 
-    def delete_user(self, user_id):
+    def delete_request(self, request_id):
         try:
-            user_id = int(user_id)
+            request_id = int(request_id)
             self.cursor.execute('start transaction')
             rows_deleted = 0
-            self.cursor.execute("delete from user where `User.id` = %s", (user_id,))
-            rows_deleted += self.cursor.rowcount
-            self.cursor.execute("delete from request where `User_User.id` = %s", (user_id,))
-            rows_deleted += self.cursor.rowcount
-            self.cursor.execute("delete from access where `User_User.id` = %s", (user_id,))
+            self.cursor.execute("delete from request where `request.id` = %s", (request_id,))
             rows_deleted += self.cursor.rowcount
             self.connection.commit()
             if rows_deleted > 0:
-                return {"message": f"User {user_id} deleted from database", "status_code": 204}
+                return {"message": f"request {request_id} deleted from request", "status_code": 204}
             else:
-                return {"message": f"User {user_id} was not deleted from database",
+                return {"message": f"request {request_id} was not deleted from request",
                         "error": "Not Found", "status_code": 404}
         except mysql.connector.Error as err:
             self.connection.rollback()
-            return {'message': 'Failed to delete user', 'error': str(err), 'status_code': 500}
+            return {'message': 'Failed to delete request', 'error': str(err), 'status_code': 500}
         except ValueError:
-            return {"message": "Invalid user id", "error": "Bad Request", "status_code": 400}
+            return {"message": "Invalid request id", "error": "Bad Request", "status_code": 400}
 
-    def update_user(self, user_id, info):
+    def edit_request(self, request_id, url_params):
         try:
-            user_id = int(user_id)
+            request_id = int(request_id)
             self.cursor.execute('start transaction')
-            updated_rows = 0
-            for i in info.items():
-                self.cursor.execute(f"update user set `{i[0]}` = '{i[1]}' where `User.id` = {user_id}")
-                updated_rows += 1
+            update_rows = 0
+            for i in url_params.items():
+                self.cursor.execute(f"update request set `{i[0]}` = '{i[1]}' where `request.id` = {request_id}")
+                update_rows += 1
             self.connection.commit()
 
-            if updated_rows > 0:
-                return {"message": f"User {user_id} updated in database", "status_code": 200}
+            if update_rows > 0:
+                return {"message": f"request {request_id} updated in request", "status_code": 200}
             else:
-                return {"message": f"User {user_id} was not updated in database",
+                return {"message": f"request {request_id} was not updated in request",
                         "error": "Not Acceptable", "status_code": 406}
         except mysql.connector.Error as err:
             self.connection.rollback()
-            return {'message': 'Failed to update user', 'error': str(err), 'status_code': 500}
+            return {'message': 'Failed to update request', 'error': str(err), 'status_code': 500}
         except ValueError:
-            return {"message": "Invalid user id", "error": "Bad Request", "status_code": 400}
+            return {"message": "Invalid request id", "error": "Bad Request", "status_code": 400}
 ```
 
-- user_controller.py:
+- request_controller.py:
 ```python
 from flask import request, jsonify
-from user_model import Users
+from request_model import Request
 from app_init import app
 
-users = Users()
+request1 = Request()
+
+@app.route("/request", methods=['GET'])
+def get_all_request():
+    return jsonify(request1.get_all_request())
 
 
-@app.route("/users", methods=['GET'])
-def get_all_users():
-    return jsonify(users.get_all_users())
+@app.route("/request/<request_id>", methods=['GET'])
+def get_request_by_id(request_id):
+    return jsonify(request1.get_request_by_id(request_id))
 
 
-@app.route("/user/<user_id>", methods=['GET'])
-def get_user_by_id(user_id):
-    return jsonify(users.get_user_by_id(user_id))
-
-
-@app.route("/users/add", methods=['POST'])
-def add_user():
+@app.route("/request/add", methods=['POST'])
+def add_request():
     url_params = request.args.to_dict()
-    return jsonify(users.add_user(url_params))
+    return jsonify(request1.add_request(url_params))
 
 
-@app.route("/users/delete/<user_id>", methods=['DELETE'])
-def delete_user(user_id):
-    return jsonify(users.delete_user(user_id))
+@app.route("/request/delete/<request_id>", methods=['DELETE'])
+def delete_request(request_id):
+    return jsonify(request1.delete_request(request_id))
 
 
-@app.route("/users/update/<user_id>", methods=['PUT'])
-def update_user(user_id):
+@app.route("/request/edit/<request_id>", methods=['PUT'])
+def edit_request(request_id):
     url_params = request.args.to_dict()
-    return jsonify(users.update_user(user_id, url_params))
+    return jsonify(request1.edit_request(request_id, url_params))
 ```
