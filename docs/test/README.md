@@ -5,71 +5,67 @@
 
 ## Запуск сервера
 
-![](./photos/server_start.png)
+![](./photos/11.png)
 
 ## Тестування GET
 
 ### Отримати всіх користувачів
 
 #### Запит:
-![](./photos/get_all_users.png)
+![](./photos/2.png)
 
 #### Результат:
-![](./photos/get_all_users_result.png)
+![](./photos/3.png)
 
 ### Отримати користувача по id
 
 #### Запит:
-![](./photos/get_user_id1.png)
+![](./photos/4.png)
 
 #### Результат:
-![](./photos/get_user_id1_result.png)
+![](./photos/5.png)
 
 ## Тестування POST
 
 ### Додати користувача
 
 #### Запит:
-![](./photos/add_user_id6.png)
+![](./photos/6.png)
 
 #### Результат:
-![](./photos/add_user_id6_result.png)
+![](./photos/7.png)
 
 #### Перевірка за допомогою GET:
-![](./photos/get_user_id6.png)
+![](./photos/8.png)
 
-![](./photos/get_user_id6_result.png)
+![](./photos/9.png)
 
 ## Тестування PUT
 
 ### Змінити користувача по id
 
 #### Запит:
-![](./photos/update_user_6.png)
+![](./photos/10.png)
 
 #### Результат:
-![](./photos/update_user_6_result.png)
+![](./photos/111.png)
 
 #### Перевірка за допомогою GET:
-![](./photos/get_user_id6_after_update.png)
+![](./photos/12.png)
 
-![](./photos/get_user_id6_after_update_result.png)
+![](./photos/13.png)
 
 ## Тестування DELETE
 
 ### Видалити користувача по id
 
 #### Запит:
-![](./photos/delete_user_6.png)
+![](./photos/14.png)
 
 #### Результат:
-![](./photos/delete_user_6_result.png)
+![](./photos/15.png)
 
 #### Перевірка за допомогою GET:
-![](./photos/get_all_users_after_delete.png)
+![](./photos/16.png)
 
-![](./photos/get_all_users_after_delete_result.png)
-
-![](./photos/get_user_6_after_delete.png)
-
-![](./photos/get_user_6_after_delete_result.png)
+![](./photos/17.png)
