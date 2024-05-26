@@ -5,67 +5,67 @@
 
 ## Запуск сервера
 
-![](./photos/11.jng)
+![](./photos/11.jpg)
 
 ## Тестування GET
 
 ### Отримати всіх користувачів
 
 #### Запит:
-![](./photos/2.jng)
+![](./photos/2.jpg)
 
 #### Результат:
-![](./photos/3.jng)
+![](./photos/3.jpg)
 
 ### Отримати користувача по id
 
 #### Запит:
-![](./photos/4.jng)
+![](./photos/4.jpg)
 
 #### Результат:
-![](./photos/5.jng)
+![](./photos/5.jpg)
 
 ## Тестування POST
 
 ### Додати користувача
 
 #### Запит:
-![](./photos/6.jng)
+![](./photos/6.jpg)
 
 #### Результат:
-![](./photos/7.jng)
+![](./photos/7.jpg)
 
 #### Перевірка за допомогою GET:
-![](./photos/8.jng)
+![](./photos/8.jpg)
 
-![](./photos/9.jng)
+![](./photos/9.jpg)
 
 ## Тестування PUT
 
 ### Змінити користувача по id
 
 #### Запит:
-![](./photos/10.jng)
+![](./photos/10.jpg)
 
 #### Результат:
-![](./photos/111.jng)
+![](./photos/111.jpg)
 
 #### Перевірка за допомогою GET:
-![](./photos/12.png)
+![](./photos/12.jpg)
 
-![](./photos/13.png)
+![](./photos/13.jpg)
 
 ## Тестування DELETE
 
 ### Видалити користувача по id
 
 #### Запит:
-![](./photos/14.png)
+![](./photos/14.jpg)
 
 #### Результат:
-![](./photos/15.png)
+![](./photos/15.jpg)
 
 #### Перевірка за допомогою GET:
-![](./photos/16.png)
+![](./photos/16.jpg)
 
-![](./photos/17.png)
+![](./photos/17.jpg)
