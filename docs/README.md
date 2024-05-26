@@ -11,7 +11,7 @@ footer: "ECL 2.0 Licensed | Copyright © 2024 Павло Пирогов"
 
 *студент 2-го курсу, групи ІО-21:*
 
-- <span padding-right:5em></span> **Павло Пирогов** <a href="https://t.me/Stvake" target="_blank"> Telegram </a>  
+- <span padding-right:5em></span> **Кривенко Богдан** <a href="https://t.me/iaBogdan" target="_blank"> Telegram </a>  
 
 **Керівник**
 
